@@ -13,6 +13,25 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(),
+        body: Column(
+          children: [
+            Text(
+              'Hello Flutter',
+              style: TextStyle(fontSize: 28),
+            ),
+            TextField(
+              decoration: InputDecoration(labelText: '이메일'),
+            ),
+            TextField(
+              obscureText: true,
+              decoration: InputDecoration(labelText: '비밀번호'),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text("로그인"),
+            )
+          ],
+        ),
       ),
     );
   }
