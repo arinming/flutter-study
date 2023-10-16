@@ -68,7 +68,9 @@ class MisoFirstPage extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.2,
+                  ),
                   Text(
                     "대한민국 1등 홈서비스\n미소를 만나보세요!",
                     textAlign: TextAlign.center,
@@ -149,8 +151,91 @@ class MisoSecondPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text("Miso 두 번째 페이지"),
+      body: SafeArea(
+        child: SizedBox(
+          width: double.infinity,
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.15,
+                    ),
+                    Text(
+                      "예약내역",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 32,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 64,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.error,
+                          color: misoPrimaryColor,
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        // 폰의 폭과 관계없이 텍스트를 언제나 한 줄로 보여주기
+                        Expanded(
+                          child: FittedBox(
+                            // 해당 영역에 적절한 사이즈로
+                            fit: BoxFit.scaleDown, // child 최소 크기 존중
+                            child: Text(
+                              "예약된 서비스가 아직 없어요. 지금 예약해보세요!",
+                              style: TextStyle(
+                                fontSize: 100,
+                              ), // 아무리 커도 한 줄로 보인다
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Divider(
+                      color: Colors.grey,
+                      height: 1,
+                    )
+                  ],
+                ),
+              ),
+              Positioned(
+                bottom: 18,
+                left: 24,
+                right: 24,
+                child: GestureDetector(
+                  onTap: () {
+                    print("예약하기 클릭");
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 58,
+                    color: misoPrimaryColor,
+                    alignment: Alignment.center,
+                    child: Text(
+                      "예약하기",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
