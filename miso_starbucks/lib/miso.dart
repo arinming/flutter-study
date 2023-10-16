@@ -252,8 +252,129 @@ class MisoThirdPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text("Miso 세 번째 페이지"),
+      backgroundColor: misoPrimaryColor,
+      body: SafeArea(
+        child: SizedBox(
+          width: double.infinity,
+          child: Stack(
+            // 친구 추천하기 버튼에 width를 주지 않고 중앙 정렬
+            alignment: Alignment.center,
+            children: [
+              Positioned(
+                bottom: 0,
+                child: Container(
+                  constraints: BoxConstraints(maxWidth: 400),
+                  child: Image.network(backgroundImgUrl),
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(
+                    height: 64,
+                  ),
+
+                  //  타이틀
+                  // 특정 부분만 bold 처리 하랴먄 RichText 위젯 사용
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      //  공통 스타일
+                      style: TextStyle(
+                        fontSize: 28,
+                        height: 1.5, // 줄 간격 한 줄의 1.5배
+                        color: Colors.white,
+                      ),
+                      children: [
+                        TextSpan(text: "친구 추천할 때마다\n"),
+                        TextSpan(
+                          text: "10,000원",
+                          // 개별 스타일
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextSpan(
+                          text: " 할인쿠폰 지급!",
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: 64,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      print("자세히 보기 클릭");
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "자세히 보기",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        ),
+                        Icon(
+                          Icons.chevron_right,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Positioned(
+                bottom: 42,
+                child: GestureDetector(
+                  onTap: () {
+                    print("친구 추천하기 버튼 클릭");
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 16,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(64),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.4),
+                          offset: Offset(0, 5),
+                          spreadRadius: 1,
+                          blurRadius: 12,
+                        )
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.redeem,
+                          color: misoPrimaryColor,
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          "친구 추천하기",
+                          style: TextStyle(
+                            color: misoPrimaryColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
