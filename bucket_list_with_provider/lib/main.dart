@@ -71,10 +71,13 @@ class HomePage extends StatelessWidget {
                         icon: Icon(CupertinoIcons.delete),
                         onPressed: () {
                           // 삭제 버튼 클릭시
+                          bucketService.deleteBucket(index);
                         },
                       ),
                       onTap: () {
                         // 아이템 클릭시
+                        bucket.isDone = !bucket.isDone;
+                        bucketService.updateBucket(bucket, index);
                       },
                     );
                   },
@@ -159,6 +162,9 @@ class _CreatePageState extends State<CreatePage> {
                     setState(() {
                       error = null; // 내용이 있는 경우 에러 메세지 숨기기
                     });
+                    // BucketService 가져오기
+                    BucketService bucketService = context.read<BucketService>();
+                    bucketService.createBucket(job);
                     Navigator.pop(context); // 화면을 종료합니다.
                   }
                 },
