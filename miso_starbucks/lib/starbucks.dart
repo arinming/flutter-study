@@ -242,9 +242,48 @@ class StarbucksThirdPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text("Starbucks 세 번째 페이지"),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          centerTitle: true,
+          title: Text(
+            "Order",
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                print("검색 버튼 클릭");
+              },
+              icon: Icon(
+                Icons.search,
+                color: Colors.grey,
+              ),
+            ),
+          ],
+          bottom: TabBar(
+            isScrollable: false,
+            indicatorColor: starbucksPrimaryColor,
+            indicatorWeight: 4,
+            labelColor: Colors.black,
+            unselectedLabelColor: Colors.grey,
+            labelStyle: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+            tabs: [
+              Tab(
+                text: "전체 메뉴",
+              )
+            ],
+          ),
+        ),
+        body: Center(),
       ),
     );
   }
