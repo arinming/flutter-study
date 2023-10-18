@@ -28,6 +28,21 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String quiz = "";
 
+  @override
+  void initState() {
+    super.initState();
+    print("시작");
+    getQuiz();
+  }
+
+  // 퀴즈 가져오기
+  void getQuiz() async {
+    String trivia = await getNumberTrivia();
+    setState(() {
+      quiz = trivia;
+    });
+  }
+
   // Numbers API 호출하기
   Future<String> getNumberTrivia() async {
     // get 메소드로 URL 호출
@@ -66,12 +81,9 @@ class _HomePageState extends State<HomePage> {
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.white),
                 ),
-                onPressed: () async {
+                onPressed: () {
                   // New Quiz 클릭시 퀴즈 가져오기
-                  String trivia = await getNumberTrivia();
-                  setState(() {
-                    quiz = trivia;
-                  });
+                  getQuiz();
                 },
                 child: Text(
                   "New Quiz",
