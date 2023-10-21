@@ -279,11 +279,24 @@ class StarbucksThirdPage extends StatelessWidget {
             tabs: [
               Tab(
                 text: "전체 메뉴",
-              )
+              ),
+              Tab(
+                text: "나만의 메뉴",
+              ),
+              Tab(
+                text: "🎂홀케이크",
+              ),
             ],
           ),
         ),
-        body: Center(),
+        body: TabBarView(
+          children: [
+            ListView.builder(
+              itemCount: 100,
+              itemBuilder: (context, index) {},
+            ),
+          ],
+        ),
       ),
     );
   }
