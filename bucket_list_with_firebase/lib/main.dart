@@ -1,4 +1,5 @@
 import 'package:bucket_list_with_firebase/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Consumer<AuthService>(
       builder: (context, authService, child) {
+        User? user = authService.currentUser();
+
         return Scaffold(
           appBar: AppBar(title: Text("로그인")),
           body: SingleChildScrollView(
@@ -55,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                 /// 현재 유저 로그인 상태
                 Center(
                   child: Text(
-                    "로그인해 주세요 🙂",
+                    user == null ? "로그인해 주세요" : "${user.email}님 안녕하세요",
                     style: TextStyle(
                       fontSize: 24,
                     ),
@@ -89,6 +92,10 @@ class _LoginPageState extends State<LoginPage> {
                           SnackBar(
                             content: Text("로그인 성공"),
                           ),
+                        ); // HomePage로 이동
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomePage()),
                         );
                       },
                       onError: (err) {
@@ -157,7 +164,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             onPressed: () {
-              print("sign out");
+              context.read<AuthService>().signOut();
               // 로그인 페이지로 이동
               Navigator.pushReplacement(
                 context,
