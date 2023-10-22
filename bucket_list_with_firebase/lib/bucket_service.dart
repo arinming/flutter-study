@@ -6,7 +6,7 @@ class BucketService extends ChangeNotifier {
 
   Future<QuerySnapshot> read(String uid) async {
     // 내 bucketList 가져오기
-    throw UnimplementedError(); // return 값 미구현 에러
+    return bucketCollection.where('uid', isEqualTo: uid).get();
   }
 
   void create(String job, String uid) async {

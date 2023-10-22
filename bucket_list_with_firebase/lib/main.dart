@@ -1,5 +1,6 @@
 import 'package:bucket_list_with_firebase/auth_service.dart';
 import 'package:bucket_list_with_firebase/bucket_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -216,35 +217,41 @@ class _HomePageState extends State<HomePage> {
 
               /// 버킷 리스트
               Expanded(
-                child: ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    String job = "$index";
-                    bool isDone = false;
-                    return ListTile(
-                      title: Text(
-                        job,
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: isDone ? Colors.grey : Colors.black,
-                          decoration: isDone
-                              ? TextDecoration.lineThrough
-                              : TextDecoration.none,
-                        ),
-                      ),
-                      // 삭제 아이콘 버튼
-                      trailing: IconButton(
-                        icon: Icon(CupertinoIcons.delete),
-                        onPressed: () {
-                          // 삭제 버튼 클릭시
+                child: FutureBuilder<QuerySnapshot>(
+                    future: bucketService.read(user.uid),
+                    builder: (context, snapshot) {
+                      final documents = snapshot.data?.docs ?? [];
+                      return ListView.builder(
+                        itemCount: documents.length,
+                        itemBuilder: (context, index) {
+                          final doc = documents[index];
+                          String job = doc.get("job");
+                          bool isDone = doc.get("isDone");
+                          return ListTile(
+                            title: Text(
+                              job,
+                              style: TextStyle(
+                                fontSize: 24,
+                                color: isDone ? Colors.grey : Colors.black,
+                                decoration: isDone
+                                    ? TextDecoration.lineThrough
+                                    : TextDecoration.none,
+                              ),
+                            ),
+                            // 삭제 아이콘 버튼
+                            trailing: IconButton(
+                              icon: Icon(CupertinoIcons.delete),
+                              onPressed: () {
+                                // 삭제 버튼 클릭시
+                              },
+                            ),
+                            onTap: () {
+                              // 아이템 클릭하여 isDone 업데이트
+                            },
+                          );
                         },
-                      ),
-                      onTap: () {
-                        // 아이템 클릭하여 isDone 업데이트
-                      },
-                    );
-                  },
-                ),
+                      );
+                    }),
               ),
             ],
           ),
